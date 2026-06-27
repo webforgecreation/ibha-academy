@@ -1,0 +1,1287 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBHA Academy - Portal (IBHAFINTECH PVT LTD)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#0b0f19',
+                        brandMedium: '#111827',
+                        brandGold: {
+                            light: '#f5d07e',
+                            DEFAULT: '#cf9e3d',
+                            dark: '#aa781b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fcd34d 0%, #cf9e3d 50%, #aa781b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .custom-card-shadow {
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.7);
+        }
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(207, 158, 61, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-brandDark text-slate-100 min-h-screen flex flex-col font-sans">
+
+    <header class="bg-brandMedium/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="handleNavigation('/')">
+                <div class="relative w-12 h-12 flex items-center justify-center">
+                    <svg viewBox="0 0 100 100" class="w-11 h-11 transform hover:rotate-45 transition-transform duration-500" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="goldSwirlGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#f5d07e" />
+                                <stop offset="50%" stop-color="#cf9e3d" />
+                                <stop offset="100%" stop-color="#aa781b" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M 50 50 Q 50 15 65 10 Q 58 42 50 50 Z" fill="url(#goldSwirlGrad)" />
+                        <path d="M 50 50 Q 85 50 90 65 Q 58 58 50 50 Z" fill="url(#goldSwirlGrad)" />
+                        <path d="M 50 50 Q 50 85 35 90 Q 42 58 50 50 Z" fill="url(#goldSwirlGrad)" />
+                        <path d="M 50 50 Q 15 50 10 35 Q 42 42 50 50 Z" fill="url(#goldSwirlGrad)" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="text-xl font-bold tracking-wider text-white">IBHA <span class="text-brandGold">ACADEMY</span></span>
+                    <span class="block text-[8px] text-slate-400 tracking-[0.25em] font-medium leading-none">IBHAFINTECH PVT LTD</span>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex space-x-8 text-sm font-medium">
+                <button onclick="handleNavigation('/')" class="hover:text-brandGold transition-colors py-2 text-slate-300">Home</button>
+                <button onclick="scrollToCourses()" class="hover:text-brandGold transition-colors py-2 text-slate-300">Programs</button>
+                <button onclick="handleNavigation('/terms-and-policy')" class="hover:text-brandGold transition-colors py-2 text-slate-300">Privacy &amp; Returns</button>
+                <button id="nav-dashboard-btn" onclick="goToDashboard()" class="hidden hover:text-brandGold transition-colors py-2 text-slate-300 font-semibold">My Portal</button>
+            </nav>
+
+            <div class="flex items-center space-x-4">
+                <div id="unauth-actions" class="flex items-center space-x-3">
+                    <button onclick="handleNavigation('/login')" class="text-xs sm:text-sm text-slate-300 hover:text-white px-4 py-2 border border-slate-700 rounded-lg transition-colors">Sign In</button>
+                    <button onclick="handleNavigation('/register')" class="text-xs sm:text-sm bg-brandGold hover:bg-brandGold-dark text-brandDark font-semibold px-4 py-2 rounded-lg transition-all shadow-md shadow-brandGold/10">Register</button>
+                </div>
+                
+                <div id="auth-actions" class="hidden flex items-center space-x-4">
+                    <span id="user-display-badge" class="hidden sm:inline-block text-xs bg-slate-800 text-brandGold-light font-medium px-3 py-1.5 rounded-full border border-slate-700"></span>
+                    <button onclick="logout()" class="text-xs sm:text-sm text-slate-400 hover:text-white border border-slate-800 hover:border-slate-700 px-3 py-1.5 rounded-lg transition-colors">Sign Out</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        
+        <section id="view-home" class="view-section py-16 px-4 max-w-7xl mx-auto hidden">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="inline-flex items-center gap-2 bg-brandGold/10 text-brandGold border border-brandGold/20 text-xs px-3.5 py-1.5 rounded-full font-medium tracking-wide">
+                        <span class="w-1.5 h-1.5 bg-brandGold rounded-full animate-ping"></span>
+                        Management &amp; Software Training Architecture
+                    </span>
+                    <h1 class="text-4xl sm:text-6xl font-extrabold text-white leading-tight">
+                        Empowering Minds, <br>
+                        <span class="gold-gradient-text">Engineering Innovations</span>
+                    </h1>
+                    <p class="text-slate-400 text-lg max-w-xl leading-relaxed">
+                        IBHA Academy delivers specialized enterprise training systems. We synthesize strategic organizational development paradigms alongside production-grade software frameworks to upscale engineers and leadership.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <button onclick="scrollToCourses()" class="bg-gradient-to-r from-brandGold to-brandGold-dark hover:brightness-110 text-brandDark font-bold px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-brandGold/10">
+                            Explore Curriculum
+                        </button>
+                        <button onclick="handleNavigation('/terms-and-policy')" class="bg-brandMedium hover:bg-slate-800 border border-slate-700 text-white font-semibold px-8 py-3.5 rounded-xl transition-colors">
+                            View 7-Day Refund Policy
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 relative">
+                    <div class="absolute inset-0 bg-brandGold/10 rounded-3xl blur-3xl"></div>
+                    <div class="relative bg-brandMedium border border-slate-800 p-8 rounded-3xl custom-card-shadow space-y-6">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                            <span class="text-xs uppercase tracking-wider text-slate-400 font-bold">Enrollment Status</span>
+                            <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-0.5 rounded-full font-medium">Open Admissions</span>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-brandDark/50 border border-slate-800 rounded-xl flex items-start gap-4">
+                                <span class="p-2.5 bg-brandGold/10 text-brandGold rounded-lg text-sm font-bold mt-1">MT</span>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">General Management &amp; Analytics</h4>
+                                    <p class="text-xs text-slate-400">Advanced modules on leadership pathways, Agile models, and events strategy.</p>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-brandDark/50 border border-slate-800 rounded-xl flex items-start gap-4">
+                                <span class="p-2.5 bg-brandGold/10 text-brandGold rounded-lg text-sm font-bold mt-1">SE</span>
+                                <div>
+                                    <h4 class="font-bold text-white text-sm">Full Stack Development &amp; Cloud DevOps</h4>
+                                    <p class="text-xs text-slate-400">Deploying cloud frameworks, Java microservices with Gen AI, and cybersecurity threat profiles.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-24 grid grid-cols-2 md:grid-cols-4 gap-6 text-center border-t border-slate-800 pt-16">
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-white font-mono tracking-wider">INNOVATE</h3>
+                    <p class="text-[11px] text-slate-400 mt-1">Integrating Gen AI patterns and automated testing workflows.</p>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-white font-mono tracking-wider">BUILD</h3>
+                    <p class="text-[11px] text-slate-400 mt-1">Deploying microservices and global supply chain frameworks.</p>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-white font-mono tracking-wider">EMPOWER</h3>
+                    <p class="text-[11px] text-slate-400 mt-1">Supporting project operations via professional simulations.</p>
+                </div>
+                <div class="p-4">
+                    <h3 class="text-lg font-bold text-white font-mono tracking-wider">GROW</h3>
+                    <p class="text-[11px] text-slate-400 mt-1">Enforcing premium industrial performance guidelines.</p>
+                </div>
+            </div>
+
+            <div id="integrated-catalog-section" class="mt-24 pt-16 border-t border-slate-800 scroll-mt-24">
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                    <span class="text-xs uppercase tracking-wider text-brandGold font-bold font-mono">Curriculum Programs</span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white">Academic Training Directory</h2>
+                    <p class="text-slate-400 text-sm">Review our enterprise certification programs in Software Engineering and Management, aligned to high-tier industry specifications.</p>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-3 mb-12">
+                    <button onclick="filterCourses('All')" class="course-tab-btn active px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold border transition-all bg-brandGold text-brandDark border-brandGold">All Programs</button>
+                    <button onclick="filterCourses('Software Training')" class="course-tab-btn px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold border transition-all border-slate-800 hover:border-slate-700 text-slate-300">Software Engineering</button>
+                    <button onclick="filterCourses('Management Training')" class="course-tab-btn px-5 py-2 rounded-lg text-xs sm:text-sm font-semibold border transition-all border-slate-800 hover:border-slate-700 text-slate-300">Management &amp; Strategy</button>
+                </div>
+
+                <div id="course-list-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+            </div>
+        </section>
+
+        <section id="view-login" class="view-section py-16 px-4 hidden">
+            <div class="max-w-md mx-auto bg-brandMedium border border-slate-800 rounded-3xl p-8 custom-card-shadow">
+                <div class="text-center space-y-3 mb-8">
+                    <h2 class="text-2xl font-bold text-white">Welcome Back</h2>
+                    <p class="text-slate-400 text-xs">Log in to track your course progress and program enrollments.</p>
+                </div>
+
+                <div id="login-error-alert" class="hidden mb-6 p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl text-xs font-semibold"></div>
+
+                <form onsubmit="handleLoginSubmit(event)" class="space-y-5">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-2">Email Address</label>
+                        <input type="email" id="login-email" required class="w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandGold transition-colors" placeholder="email@address.com">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-2">Password</label>
+                        <input type="password" id="login-password" required class="w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandGold transition-colors" placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="w-full py-3.5 bg-brandGold hover:bg-brandGold-dark text-brandDark font-bold rounded-xl transition-colors shadow-lg shadow-brandGold/10">
+                        Login
+                    </button>
+                </form>
+
+                <p class="text-center text-slate-400 text-xs mt-6">
+                    Don't have an account? <span onclick="handleNavigation('/register')" class="text-brandGold hover:underline cursor-pointer">Register here</span>
+                </p>
+            </div>
+        </section>
+
+        <section id="view-register" class="view-section py-16 px-4 hidden">
+            <div class="max-w-md mx-auto bg-brandMedium border border-slate-800 rounded-3xl p-8 custom-card-shadow">
+                <div class="text-center space-y-3 mb-8">
+                    <h2 class="text-2xl font-bold text-white">Initialize Academy Profile</h2>
+                    <p class="text-slate-400 text-xs">Start your training path with IBHA Academy.</p>
+                </div>
+
+                <div id="register-error-alert" class="hidden mb-6 p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl text-xs font-semibold"></div>
+                <div id="register-success-alert" class="hidden mb-6 p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-xs font-semibold"></div>
+
+                <form onsubmit="handleRegisterSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-2">Full Legal Name</label>
+                        <input type="text" id="register-name" required class="w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandGold transition-colors" placeholder="First Last">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-2">Email Address</label>
+                        <input type="email" id="register-email" required class="w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandGold transition-colors" placeholder="yourname@domain.com">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-2">Password</label>
+                        <input type="password" id="register-password" required class="w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandGold transition-colors" placeholder="Set password (min 6 characters)">
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-2">Select Account Role</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <label class="flex items-center gap-3 p-3 bg-brandDark border border-slate-800 rounded-xl cursor-pointer hover:border-brandGold transition-colors">
+                                <input type="radio" name="register-role" value="Student" checked class="text-brandGold focus:ring-0">
+                                <span class="text-sm font-semibold text-white">Student</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3 bg-brandDark border border-slate-800 rounded-xl cursor-pointer hover:border-brandGold transition-colors">
+                                <input type="radio" name="register-role" value="Instructor" class="text-brandGold focus:ring-0">
+                                <span class="text-sm font-semibold text-white">Instructor</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-brandDark/50 rounded-xl border border-slate-800 space-y-2">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" id="register-agree-terms" required class="mt-1 rounded text-brandGold focus:ring-0 bg-brandDark border-slate-700">
+                            <span class="text-xs text-slate-300 leading-relaxed">
+                                I verify that I accept the 
+                                <span onclick="event.stopPropagation(); handleNavigation('/terms-and-policy')" class="text-brandGold hover:underline">Terms &amp; Conditions</span> 
+                                and the 
+                                <span onclick="event.stopPropagation(); handleNavigation('/terms-and-policy')" class="text-brandGold hover:underline">7-Day Return and Refund Policy</span>.
+                            </span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="w-full mt-2 py-3.5 bg-brandGold hover:bg-brandGold-dark text-brandDark font-bold rounded-xl transition-colors shadow-lg shadow-brandGold/10">
+                        Register Account
+                    </button>
+                </form>
+
+                <p class="text-center text-slate-400 text-xs mt-6">
+                    Already registered? <span onclick="handleNavigation('/login')" class="text-brandGold hover:underline cursor-pointer">Log in</span>
+                </p>
+            </div>
+        </section>
+
+        <section id="view-terms-and-policy" class="view-section py-16 px-4 max-w-4xl mx-auto hidden space-y-12">
+            <div class="border-b border-slate-800 pb-6">
+                <span class="text-xs uppercase tracking-wider text-brandGold font-bold">Regulatory Declarations</span>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-white mt-1">Terms of Service &amp; Refund Guidelines</h1>
+                <p class="text-slate-400 text-xs mt-1">Effective Date: January 1, 2025 | IBHAFINTECH PVT LTD</p>
+            </div>
+
+            <div class="bg-brandMedium border border-slate-800 rounded-3xl p-8 space-y-4 custom-card-shadow">
+                <div class="flex items-center gap-3">
+                    <span class="p-2 bg-brandGold/10 text-brandGold rounded-lg font-bold">7D</span>
+                    <h2 class="text-xl font-bold text-white">7-Day Course Return &amp; Refund Policy</h2>
+                </div>
+                <div class="text-slate-300 text-sm space-y-3 leading-relaxed">
+                    <p>At <strong>IBHA Academy</strong>, we maintain complete transparency regarding our educational courses. We want our students to be confident in their software engineering and management training purchases.</p>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li><strong>Refund Request Period:</strong> You are entitled to apply for a complete return refund within exactly seven (7) calendar days from your initial program enrollment date.</li>
+                        <li><strong>Content Progress Limits:</strong> To protect our intellectual property, course returns are only valid if you have completed less than <strong>30%</strong> of the total course modules.</li>
+                        <li><strong>Evaluation:</strong> To request a return, you can use the interactive refund request form inside your student dashboard. Refund requests will be reviewed and processed within 3-5 business days.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="space-y-6 text-slate-300 text-sm leading-relaxed">
+                <h2 class="text-2xl font-bold text-white">Terms of Educational Operations</h2>
+                
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-white">1. Provision of Training Services</h3>
+                    <p>All materials, lessons, digital labs, and projects delivered by IBHA Academy are intended solely for registered students. Unauthorized distribution of our intellectual materials, code files, or training videos violates copyright laws and will result in permanent account termination.</p>
+
+                    <h3 class="text-lg font-semibold text-white">2. User Account Obligations</h3>
+                    <p>Users must register with verified legal identities. You are solely responsible for maintaining security credentials, password integrity, and active dashboard connections.</p>
+
+                    <h3 class="text-lg font-semibold text-white">3. System &amp; Liability Limitations</h3>
+                    <p>IBHA Academy (operated by IBHAFINTECH PVT LTD) holds zero liability regarding third-party service connections, individual hardware issues, or local system compilation faults that occur during your developmental execution exercises.</p>
+
+                    <h3 class="text-lg font-semibold text-white">4. Support &amp; Communication Channels</h3>
+                    <p>For support, questions, or corporate reviews, you can contact us at any time using our support details:</p>
+                    <div class="bg-brandMedium border border-slate-800 rounded-2xl p-6 grid sm:grid-cols-3 gap-4 text-xs">
+                        <div>
+                            <span class="block text-slate-400 uppercase font-bold">Phone Support</span>
+                            <span class="text-white font-medium text-sm block mt-1">+91 91000 94484</span>
+                        </div>
+                        <div>
+                            <span class="block text-slate-400 uppercase font-bold">Support Email</span>
+                            <a href="mailto:ibhafintech@gmail.com" class="text-white font-medium text-sm block mt-1 hover:text-brandGold">ibhafintech@gmail.com</a>
+                        </div>
+                        <div>
+                            <span class="block text-slate-400 uppercase font-bold">Regional Office</span>
+                            <span class="text-white font-medium text-sm block mt-1">Hyderabad, Telangana</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-dashboard-student" class="view-section py-16 px-4 max-w-7xl mx-auto hidden">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-800 pb-8 mb-12 gap-4">
+                <div>
+                    <span class="text-xs uppercase tracking-wider text-brandGold font-bold">LMS Student Panel</span>
+                    <h2 id="student-welcome-title" class="text-3xl font-extrabold text-white">Your Registered Programs</h2>
+                </div>
+                <div class="flex items-center gap-3 bg-brandMedium px-4 py-2.5 rounded-xl border border-slate-800">
+                    <span class="text-xs text-slate-400">Total Enrollment Count:</span>
+                    <span id="student-course-count" class="text-sm font-bold text-brandGold">0 Modules</span>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-lg font-bold text-white mb-6">Program Directory</h3>
+                <div id="student-enrollments-container" class="grid lg:grid-cols-2 gap-8"></div>
+            </div>
+        </section>
+
+        <section id="view-dashboard-instructor" class="view-section py-16 px-4 max-w-7xl mx-auto hidden">
+            <div class="border-b border-slate-800 pb-8 mb-12 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <span class="text-xs uppercase tracking-wider text-brandGold font-bold">LMS Management Control</span>
+                    <h2 id="instructor-welcome-title" class="text-3xl font-extrabold text-white">Instructor Dashboard</h2>
+                </div>
+                <button onclick="openCourseCreationModal()" class="flex items-center gap-2 bg-brandGold hover:bg-brandGold-dark text-brandDark font-bold px-5 py-2.5 rounded-xl transition-colors shadow-lg">
+                    <span>+</span> Launch New Program Module
+                </button>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-8 space-y-8">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">Program Management</h3>
+                        <div id="instructor-courses-container" class="space-y-4"></div>
+                    </div>
+
+                    <div class="space-y-4 border-t border-slate-800 pt-8">
+                        <h3 class="text-lg font-bold text-rose-400 flex items-center gap-2">
+                            <span>⟲</span> Pending Course Return &amp; Refund Requests
+                        </h3>
+                        <div id="instructor-refund-requests-container" class="space-y-4"></div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-4 bg-brandMedium border border-slate-800 rounded-3xl p-6 space-y-6">
+                    <h3 class="text-sm uppercase tracking-wider text-slate-400 font-bold border-b border-slate-800 pb-3">Operational Analytics</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-brandDark/50 rounded-xl border border-slate-800">
+                            <span class="text-2xl font-bold text-white" id="stat-active-courses">0</span>
+                            <span class="block text-slate-400 text-[10px] uppercase font-bold mt-1">Active Courses</span>
+                        </div>
+                        <div class="p-4 bg-brandDark/50 rounded-xl border border-slate-800">
+                            <span class="text-2xl font-bold text-white" id="stat-total-enrolled">0</span>
+                            <span class="block text-slate-400 text-[10px] uppercase font-bold mt-1">Total Enrollments</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-brandGold/5 rounded-xl border border-brandGold/10 space-y-2">
+                        <span class="text-xs font-bold text-brandGold block">Return Policy Operations</span>
+                        <p class="text-xs text-slate-300 leading-relaxed">Students can request course returns within 7 days of purchase. Please review and respond to return requests promptly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div id="checkout-modal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+            <div class="flex items-center justify-center min-h-screen px-4 py-8">
+                <div class="fixed inset-0 bg-brandDark/80 backdrop-blur-sm" onclick="closeCheckoutModal()"></div>
+                
+                <div class="relative bg-brandMedium border border-slate-800 rounded-3xl max-w-md w-full p-8 custom-card-shadow overflow-hidden space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                        <h3 class="text-xl font-bold text-white">Secure Checkout Simulator</h3>
+                        <button onclick="closeCheckoutModal()" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+                    </div>
+
+                    <div id="checkout-error-alert" class="hidden p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl text-xs font-semibold"></div>
+
+                    <div class="space-y-4">
+                        <div class="p-4 bg-brandDark rounded-2xl border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <span class="text-xs text-slate-400 block uppercase tracking-wider font-bold">Course Selection</span>
+                                <span id="checkout-course-title" class="text-sm font-bold text-white">Course Title</span>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-xs text-slate-400 block uppercase tracking-wider font-bold">Course Price</span>
+                                <span id="checkout-course-price" class="text-sm font-bold text-brandGold">₹0</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold">Select Payment Mode</label>
+                            <select id="checkout-payment-method" class="w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandGold transition-colors">
+                                <option value="UPI (Google Pay / PhonePe)">Simulated UPI Transfer</option>
+                                <option value="Simulated Netbanking">Simulated Netbanking Secure</option>
+                                <option value="Virtual Card Checkout">Virtual Credit/Debit Card</option>
+                            </select>
+                        </div>
+
+                        <div class="p-4 bg-brandDark rounded-2xl border border-slate-800 space-y-2">
+                            <label class="flex items-start gap-3 cursor-pointer">
+                                <input type="checkbox" id="checkout-agree-refund" required class="mt-1 rounded text-brandGold focus:ring-0 bg-brandDark border-slate-700">
+                                <span class="text-xs text-slate-300 leading-relaxed">
+                                    I accept that this course purchase qualifies for our 
+                                    <span onclick="handleNavigation('/terms-and-policy')" class="text-brandGold hover:underline font-semibold">7-Day Refund Policy</span>. 
+                                    I agree to the terms of service.
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-end pt-4 border-t border-slate-800">
+                        <button type="button" onclick="closeCheckoutModal()" class="px-5 py-2.5 bg-brandDark hover:bg-slate-800 text-slate-300 text-xs font-bold rounded-xl">Cancel</button>
+                        <button type="button" onclick="submitSimulatedPayment()" class="px-5 py-2.5 bg-brandGold hover:bg-brandGold-dark text-brandDark text-xs font-extrabold rounded-xl shadow-lg shadow-brandGold/25">
+                            Complete Simulated Payment
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="refund-request-modal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+            <div class="flex items-center justify-center min-h-screen px-4 py-8">
+                <div class="fixed inset-0 bg-brandDark/80 backdrop-blur-sm" onclick="closeRefundModal()"></div>
+                
+                <div class="relative bg-brandMedium border border-slate-800 rounded-3xl max-w-md w-full p-8 custom-card-shadow overflow-hidden space-y-4">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                        <h3 class="text-xl font-bold text-white">Course Return Request</h3>
+                        <button onclick="closeRefundModal()" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+                    </div>
+
+                    <div id="refund-modal-error" class="hidden p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl text-xs font-semibold"></div>
+
+                    <div class="space-y-3">
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Course returns are eligible within <strong>7 days</strong> of purchase. Please explain why you are requesting a refund to help us improve.
+                        </p>
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-2">Reason for Return</label>
+                            <textarea id="refund-reason-text" rows="3" required class="w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandGold transition-colors" placeholder="e.g., Curriculum differences, pace alignment issues..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 justify-end pt-4 border-t border-slate-800">
+                        <button type="button" onclick="closeRefundModal()" class="px-5 py-2.5 bg-brandDark hover:bg-slate-800 text-slate-300 text-xs font-semibold rounded-xl">Cancel</button>
+                        <button type="button" onclick="submitRefundRequest()" class="px-5 py-2.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-extrabold rounded-xl shadow-lg shadow-rose-600/20">
+                            Submit Refund Request
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="course-create-modal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+            <div class="flex items-center justify-center min-h-screen px-4 py-8">
+                <div class="fixed inset-0 bg-brandDark/80 backdrop-blur-sm" onclick="closeCourseCreationModal()"></div>
+                
+                <div class="relative bg-brandMedium border border-slate-800 rounded-3xl max-w-2xl w-full p-8 custom-card-shadow overflow-hidden">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                        <h3 class="text-xl font-bold text-white">Launch New Program Module</h3>
+                        <button onclick="closeCourseCreationModal()" class="text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+                    </div>
+
+                    <div id="modal-error-alert" class="hidden mb-6 p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl text-xs font-semibold"></div>
+
+                    <form onsubmit="handleCourseCreateSubmit(event)" class="space-y-5">
+                        <div class="grid sm:grid-cols-3 gap-4">
+                            <div class="sm:col-span-1">
+                                <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-2">Program Title</label>
+                                <input type="text" id="m-course-title" required class="w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandGold transition-colors" placeholder="e.g. Node.js Enterprise">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-2">Academic Category</label>
+                                <select id="m-course-category" required class="w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandGold transition-colors">
+                                    <option value="Software Training">Software Training</option>
+                                    <option value="Management Training">Management Training</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-2">Pricing (INR)</label>
+                                <input type="number" id="m-course-price" required class="w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandGold transition-colors" placeholder="e.g. 55000">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-2">Duration (e.g. 3 to 4 Months)</label>
+                            <input type="text" id="m-course-duration" required class="w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandGold transition-colors" placeholder="e.g. 3 to 4 Months">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-2">Course Description</label>
+                            <textarea id="m-course-desc" required rows="3" class="w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-brandGold transition-colors" placeholder="Objectives, scope, goals, syllabus benchmarks..."></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase tracking-wider text-slate-400 font-bold mb-2">Syllabus Lessons (One line per lesson)</label>
+                            <div id="m-lessons-inputs-stack" class="space-y-2">
+                                <input type="text" class="m-lesson-input w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brandGold transition-colors" placeholder="Lesson Segment 1">
+                                <input type="text" class="m-lesson-input w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brandGold transition-colors" placeholder="Lesson Segment 2">
+                            </div>
+                            <button type="button" onclick="addNewLessonInput()" class="text-xs text-brandGold hover:underline mt-2 font-semibold">+ Include Sequence Lesson</button>
+                        </div>
+
+                        <div class="flex justify-end gap-3 pt-4 border-t border-slate-800">
+                            <button type="button" onclick="closeCourseCreationModal()" class="px-5 py-2.5 bg-brandDark hover:bg-slate-800 text-slate-300 font-semibold rounded-xl">Cancel</button>
+                            <button type="submit" class="px-5 py-2.5 bg-brandGold hover:bg-brandGold-dark text-brandDark font-bold rounded-xl transition-colors">Publish Module</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-brandDark border-t border-slate-900 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <div class="md:col-span-2 space-y-4">
+                    <span class="text-lg font-extrabold tracking-wider text-white">IBHA <span class="text-brandGold">ACADEMY</span></span>
+                    <p class="text-slate-400 text-xs max-w-sm leading-relaxed">
+                        A training system powered by IBHAFINTECH PVT LTD. Providing professional architectural guidance, robust engineering practices, and business development frameworks.
+                    </p>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs uppercase tracking-wider font-bold text-slate-300">Policies &amp; Links</h4>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li><span onclick="handleNavigation('/terms-and-policy')" class="hover:text-brandGold cursor-pointer transition-colors">7-Day Return Policy</span></li>
+                        <li><span onclick="handleNavigation('/terms-and-policy')" class="hover:text-brandGold cursor-pointer transition-colors">Terms of Operations</span></li>
+                        <li><span onclick="scrollToCourses()" class="hover:text-brandGold cursor-pointer transition-colors">Software Engineering Programs</span></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs uppercase tracking-wider font-bold text-slate-300">Contact Support</h4>
+                    <ul class="space-y-2 text-xs text-slate-400">
+                        <li>Phone: <span class="text-white font-medium">+91 91000 94484</span></li>
+                        <li>Email: <a href="mailto:ibhafintech@gmail.com" class="text-white hover:text-brandGold font-medium">ibhafintech@gmail.com</a></li>
+                        <li>Address: <span class="text-white">Hyderabad, Telangana</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-900/60 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500 text-[10px] uppercase font-bold tracking-wider">
+                <span>© 2025 IBHA ACADEMY | IBHAFINTECH PVT LTD. All Rights Reserved.</span>
+                <span class="flex gap-4">
+                    <span>INNOVATE</span><span>|</span><span>BUILD</span><span>|</span><span>EMPOWER</span><span>|</span><span>GROW</span>
+                </span>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = window.location.origin;
+
+        let currentUser = null;
+        let token = null;
+        let localCourses = [];
+        let currentCategoryFilter = 'All';
+
+        let targetedCheckoutCourseId = null;
+        let targetedRefundEnrollmentId = null;
+
+        function handleNavigation(path, pushState = true) {
+            if (pushState) {
+                history.pushState(null, '', path);
+            }
+            renderViewFromPath(path);
+        }
+
+        window.onpopstate = function() {
+            renderViewFromPath(window.location.pathname);
+        };
+
+        function renderViewFromPath(path) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+
+            if (path === '/' || path === '/home') {
+                document.getElementById('view-home').classList.remove('hidden');
+                fetchCourses();
+            } else if (path === '/terms-and-policy') {
+                document.getElementById('view-terms-and-policy').classList.remove('hidden');
+            } else if (path === '/login') {
+                document.getElementById('view-login').classList.remove('hidden');
+            } else if (path === '/register') {
+                document.getElementById('view-register').classList.remove('hidden');
+            } else if (path === '/dashboard') {
+                if (!currentUser) {
+                    handleNavigation('/login');
+                } else if (currentUser.role === 'Student') {
+                    document.getElementById('view-dashboard-student').classList.remove('hidden');
+                    fetchStudentDashboardData();
+                } else if (currentUser.role === 'Instructor') {
+                    document.getElementById('view-dashboard-instructor').classList.remove('hidden');
+                    fetchInstructorDashboardData();
+                }
+            } else {
+                document.getElementById('view-home').classList.remove('hidden');
+                fetchCourses();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const cachedUser = localStorage.getItem('ibha_user');
+            const cachedToken = localStorage.getItem('ibha_token');
+
+            if (cachedUser && cachedToken) {
+                currentUser = JSON.parse(cachedUser);
+                token = cachedToken;
+                updateAuthUI();
+            }
+
+            renderViewFromPath(window.location.pathname);
+        });
+
+        function scrollToCourses() {
+            handleNavigation('/');
+            setTimeout(() => {
+                const catalog = document.getElementById('integrated-catalog-section');
+                if (catalog) {
+                    catalog.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 150);
+        }
+
+        function goToDashboard() {
+            handleNavigation('/dashboard');
+        }
+
+        function updateAuthUI() {
+            const unauthActions = document.getElementById('unauth-actions');
+            const authActions = document.getElementById('auth-actions');
+            const navDashboardBtn = document.getElementById('nav-dashboard-btn');
+            const userDisplayBadge = document.getElementById('user-display-badge');
+
+            if (currentUser && token) {
+                unauthActions.classList.add('hidden');
+                authActions.classList.remove('hidden');
+                navDashboardBtn.classList.remove('hidden');
+                userDisplayBadge.textContent = `${currentUser.fullName} (${currentUser.role})`;
+                userDisplayBadge.classList.remove('hidden');
+            } else {
+                unauthActions.classList.remove('hidden');
+                authActions.classList.add('hidden');
+                navDashboardBtn.classList.add('hidden');
+                userDisplayBadge.classList.add('hidden');
+            }
+        }
+
+        // LOGOUT METHOD
+        function logout() {
+            currentUser = null;
+            token = null;
+            localStorage.removeItem('ibha_user');
+            localStorage.removeItem('ibha_token');
+            updateAuthUI();
+            handleNavigation('/');
+        }
+
+        async function handleRegisterSubmit(event) {
+            event.preventDefault();
+            const fullName = document.getElementById('register-name').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const role = document.querySelector('input[name="register-role"]:checked').value;
+            const agreedToTerms = document.getElementById('register-agree-terms').checked;
+
+            const errorAlert = document.getElementById('register-error-alert');
+            const successAlert = document.getElementById('register-success-alert');
+            
+            errorAlert.classList.add('hidden');
+            successAlert.classList.add('hidden');
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ fullName, email, password, role, agreedToTerms })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    errorAlert.textContent = data.error || "Registration error has occurred.";
+                    errorAlert.classList.remove('hidden');
+                    return;
+                }
+
+                successAlert.textContent = data.message;
+                successAlert.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    handleNavigation('/login');
+                    document.getElementById('register-name').value = '';
+                    document.getElementById('register-email').value = '';
+                    document.getElementById('register-password').value = '';
+                    document.getElementById('register-agree-terms').checked = false;
+                    successAlert.classList.add('hidden');
+                }, 1500);
+
+            } catch (err) {
+                errorAlert.textContent = "Unable to connect with the backend registry services.";
+                errorAlert.classList.remove('hidden');
+            }
+        }
+
+        async function handleLoginSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const errorAlert = document.getElementById('login-error-alert');
+
+            errorAlert.classList.add('hidden');
+
+            try {
+                const response = await fetch(`${API_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    errorAlert.textContent = data.error || "Authentication denied.";
+                    errorAlert.classList.remove('hidden');
+                    return;
+                }
+
+                currentUser = data.user;
+                token = data.token;
+                localStorage.setItem('ibha_user', JSON.stringify(data.user));
+                localStorage.setItem('ibha_token', data.token);
+
+                updateAuthUI();
+                goToDashboard();
+
+                document.getElementById('login-email').value = '';
+                document.getElementById('login-password').value = '';
+
+            } catch (err) {
+                errorAlert.textContent = "Unable to reach the network authorization interfaces.";
+                errorAlert.classList.remove('hidden');
+            }
+        }
+
+        async function fetchCourses() {
+            try {
+                const response = await fetch(`${API_URL}/api/courses`);
+                if (!response.ok) throw new Error("Could not download system index mapping courses.");
+                localCourses = await response.json();
+                renderCourses();
+            } catch (err) {
+                console.error("Course rendering error feedback: ", err);
+            }
+        }
+
+        function filterCourses(category) {
+            currentCategoryFilter = category;
+            
+            document.querySelectorAll('.course-tab-btn').forEach(btn => {
+                btn.classList.remove('bg-brandGold', 'text-brandDark', 'border-brandGold');
+                btn.classList.add('border-slate-800', 'hover:border-slate-700', 'text-slate-300');
+            });
+
+            event.target.classList.remove('border-slate-800', 'hover:border-slate-700', 'text-slate-300');
+            event.target.classList.add('bg-brandGold', 'text-brandDark', 'border-brandGold');
+
+            renderCourses();
+        }
+
+        function renderCourses() {
+            const container = document.getElementById('course-list-grid');
+            container.innerHTML = '';
+
+            const filtered = localCourses.filter(c => currentCategoryFilter === 'All' || c.category === currentCategoryFilter);
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-2 text-center py-12 bg-brandMedium border border-slate-800 rounded-3xl">
+                        <p class="text-slate-400 text-sm">No courses matching the selected category are currently active.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            filtered.forEach(course => {
+                const card = document.createElement('div');
+                card.className = "bg-brandMedium border border-slate-800 rounded-3xl p-6 relative flex flex-col justify-between custom-card-shadow hover:border-brandGold/40 transition-all duration-300";
+                
+                let lessonsMarkup = '';
+                if (course.lessons && course.lessons.length > 0) {
+                    lessonsMarkup = `
+                        <div class="mt-4 pt-4 border-t border-slate-800/60">
+                            <span class="block text-[10px] uppercase text-slate-400 font-bold mb-2">Curriculum Highlight (${course.lessons.length} Lessons)</span>
+                            <ul class="space-y-1">
+                                ${course.lessons.slice(0, 3).map(l => `<li class="text-xs text-slate-300 flex items-center gap-1.5"><span class="w-1 h-1 bg-brandGold rounded-full"></span>${l}</li>`).join('')}
+                                ${course.lessons.length > 3 ? `<li class="text-[10px] text-brandGold font-semibold italic">+ ${course.lessons.length - 3} more segments...</li>` : ''}
+                            </ul>
+                        </div>
+                    `;
+                }
+
+                let actionBtnMarkup = '';
+                if (!currentUser) {
+                    actionBtnMarkup = `
+                        <button onclick="handleNavigation('/login')" class="w-full mt-6 py-2.5 bg-brandDark hover:bg-slate-800 border border-slate-800 hover:border-slate-700 text-slate-300 text-xs font-bold rounded-xl transition-colors">
+                            Sign In to Register
+                        </button>
+                    `;
+                } else if (currentUser.role === 'Student') {
+                    actionBtnMarkup = `
+                        <button onclick="openCheckoutModal('${course.id}')" class="w-full mt-6 py-2.5 bg-brandGold hover:bg-brandGold-dark text-brandDark text-xs font-extrabold rounded-xl transition-colors shadow-sm">
+                            Enroll Program (₹${course.price.toLocaleString('en-IN')})
+                        </button>
+                    `;
+                } else {
+                    actionBtnMarkup = `
+                        <div class="w-full mt-6 py-2.5 bg-brandDark/40 text-center text-[10px] text-slate-400 border border-slate-800 rounded-xl uppercase tracking-wider font-bold">
+                            View Mode (Instructor Active)
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-semibold bg-brandGold/10 text-brandGold border border-brandGold/20 px-2.5 py-1 rounded-full">${course.category}</span>
+                            <span class="text-[10px] text-slate-400 font-bold">${course.duration}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-white tracking-tight">${course.title}</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">${course.description}</p>
+                        ${lessonsMarkup}
+                    </div>
+                    ${actionBtnMarkup}
+`;
+                container.appendChild(card);
+            });
+        }
+
+        function openCheckoutModal(courseId) {
+            const course = localCourses.find(c => c.id === courseId);
+            if (!course) return;
+
+            targetedCheckoutCourseId = courseId;
+            document.getElementById('checkout-course-title').textContent = course.title;
+            document.getElementById('checkout-course-price').textContent = `₹${course.price.toLocaleString('en-IN')}`;
+            document.getElementById('checkout-agree-refund').checked = false;
+            document.getElementById('checkout-error-alert').classList.add('hidden');
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+            targetedCheckoutCourseId = null;
+        }
+
+        async function submitSimulatedPayment() {
+            const paymentMethod = document.getElementById('checkout-payment-method').value;
+            const agreedToRefundPolicy = document.getElementById('checkout-agree-refund').checked;
+            const errorAlert = document.getElementById('checkout-error-alert');
+
+            if (!agreedToRefundPolicy) {
+                errorAlert.textContent = "You must agree to the Return and Refund terms to complete registration.";
+                errorAlert.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/courses/${targetedCheckoutCourseId}/enroll`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ paymentMethod, agreedToRefundPolicy })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    errorAlert.textContent = data.error || "Failed to complete transaction.";
+                    errorAlert.classList.remove('hidden');
+                    return;
+                }
+
+                closeCheckoutModal();
+                alert(`Simulated payment complete. ${data.message}`);
+                handleNavigation('/dashboard');
+
+            } catch (err) {
+                errorAlert.textContent = "Connectivity fault occurring during validation checks.";
+                errorAlert.classList.remove('hidden');
+            }
+        }
+
+        async function fetchStudentDashboardData() {
+            try {
+                const response = await fetch(`${API_URL}/api/dashboard/student`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!response.ok) throw new Error("Could not fetch Student dashboard telemetry.");
+
+                const data = await response.json();
+                document.getElementById('student-welcome-title').textContent = `Welcome back, ${currentUser.fullName}`;
+                document.getElementById('student-course-count').textContent = `${data.enrollments.length} Programs`;
+                
+                renderStudentEnrollments(data.enrollments);
+
+            } catch (err) {
+                console.error("Dashboard error: ", err);
+            }
+        }
+
+        function renderStudentEnrollments(enrollments) {
+            const container = document.getElementById('student-enrollments-container');
+            container.innerHTML = '';
+
+            if (enrollments.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-2 text-center py-12 bg-brandMedium border border-slate-800 rounded-3xl p-8">
+                        <p class="text-slate-400 text-sm mb-4">You have not registered for any active courses yet.</p>
+                        <button onclick="scrollToCourses()" class="bg-brandGold text-brandDark font-bold text-xs px-5 py-2.5 rounded-xl">Browse Courses</button>
+                    </div>
+                `;
+                return;
+            }
+
+            enrollments.forEach(enrollment => {
+                const card = document.createElement('div');
+                card.className = "bg-brandMedium border border-slate-800 rounded-3xl p-6 custom-card-shadow space-y-6 relative overflow-hidden";
+
+                let lessonsListHTML = '';
+                if (enrollment.lessons && enrollment.lessons.length > 0) {
+                    lessonsListHTML = enrollment.lessons.map(lesson => {
+                        const isChecked = enrollment.completedLessons && enrollment.completedLessons.includes(lesson);
+                        const isDisabled = enrollment.status === 'Refund Approved';
+                        return `
+                            <label class="flex items-center justify-between p-3 bg-brandDark/50 rounded-xl border border-slate-800/80 ${isDisabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-brandDark/80'}">
+                                <span class="text-xs text-slate-300 ${isChecked ? 'line-through text-slate-500' : ''}">${lesson}</span>
+                                <input type="checkbox" ${isChecked ? 'checked' : ''} ${isDisabled ? 'disabled' : ''} onclick="toggleLessonProgress('${enrollment.id}', '${lesson.replace(/'/g, "\\'")}')" class="rounded text-brandGold focus:ring-0 bg-brandDark border-slate-700">
+                            </label>
+                        `;
+                    }).join('');
+                }
+
+                const enrollmentTime = new Date(enrollment.enrollmentDate).getTime();
+                const limitTime = enrollmentTime + (7 * 24 * 60 * 60 * 1000);
+                const isWithinReturnWindow = Date.now() < limitTime;
+
+                let refundActionHeader = '';
+                if (enrollment.status === 'Active') {
+                    if (isWithinReturnWindow) {
+                        refundActionHeader = `
+                            <button onclick="openRefundModal('${enrollment.id}')" class="text-[10px] bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 font-extrabold border border-rose-500/20 px-3 py-1.5 rounded-lg transition-colors">
+                                Apply for Refund (7D Policy Window)
+                            </button>
+                        `;
+                    } else {
+                        refundActionHeader = `
+                            <span class="text-[10px] text-slate-500 border border-slate-800/80 px-2 py-1.5 rounded-lg font-medium">Return Window Closed</span>
+                        `;
+                    }
+                } else if (enrollment.status === 'Refund Pending') {
+                    refundActionHeader = `
+                        <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-1.5 rounded-lg font-bold animate-pulse">Refund Request Pending</span>
+                    `;
+                } else if (enrollment.status === 'Refund Approved') {
+                    refundActionHeader = `
+                        <span class="text-[10px] bg-rose-500 text-white px-2.5 py-1.5 rounded-lg font-extrabold">Revoked (Refunded)</span>
+                    `;
+                } else if (enrollment.status === 'Refund Denied') {
+                    refundActionHeader = `
+                        <span class="text-[10px] bg-slate-800 text-slate-400 border border-slate-700 px-2.5 py-1.5 rounded-lg font-bold">Refund Declined</span>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-800/80 pb-3 gap-2">
+                            <span class="text-[9px] uppercase tracking-wider font-extrabold bg-brandGold/10 text-brandGold border border-brandGold/20 px-2 rounded-full">${enrollment.category}</span>
+                            ${refundActionHeader}
+                        </div>
+                        
+                        <div>
+                            <h4 class="text-lg font-bold text-white">${enrollment.courseTitle}</h4>
+                            <span class="text-xs text-slate-400 block mt-1">Transaction Total: ₹${enrollment.price.toLocaleString('en-IN')} (via ${enrollment.paymentMethod})</span>
+                        </div>
+                        
+                        <div class="space-y-2 pt-2">
+                            <div class="flex items-center justify-between text-xs text-slate-400">
+                                <span>Progress Metric</span>
+                                <span class="text-brandGold font-bold">${enrollment.progress}%</span>
+                            </div>
+                            <div class="w-full bg-brandDark h-2 rounded-full overflow-hidden border border-slate-800">
+                                <div class="bg-brandGold h-full transition-all duration-500" style="width: ${enrollment.progress}%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 pt-4 border-t border-slate-800">
+                        <span class="block text-[10px] uppercase tracking-wider text-slate-400 font-bold mb-3">Syllabus segments</span>
+                        <div class="space-y-2 max-h-60 overflow-y-auto pr-1">
+                            ${lessonsListHTML || '<p class="text-xs text-slate-400 italic">No structure elements registered.</p>'}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        async function toggleLessonProgress(enrollmentId, lessonTitle) {
+            try {
+                const response = await fetch(`${API_URL}/api/enrollments/${enrollmentId}/progress`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ lessonTitle })
+                });
+
+                if (!response.ok) {
+                    const data = await response.json();
+                    alert(data.error || "Could not save progress change.");
+                    return;
+                }
+                
+                fetchStudentDashboardData();
+            } catch (err) {
+                alert("Progress update operations timed out.");
+            }
+        }
+
+        function openRefundModal(enrollmentId) {
+            targetedRefundEnrollmentId = enrollmentId;
+            document.getElementById('refund-reason-text').value = '';
+            document.getElementById('refund-modal-error').classList.add('hidden');
+            document.getElementById('refund-request-modal').classList.remove('hidden');
+        }
+
+        function closeRefundModal() {
+            document.getElementById('refund-request-modal').classList.add('hidden');
+            targetedRefundEnrollmentId = null;
+        }
+
+        async function submitRefundRequest() {
+            const reason = document.getElementById('refund-reason-text').value;
+            const errorDiv = document.getElementById('refund-modal-error');
+
+            if (!reason || reason.trim() === "") {
+                errorDiv.textContent = "Please state a reason for applying for a refund.";
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/enrollments/${targetedRefundEnrollmentId}/refund-request`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ reason })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    errorDiv.textContent = data.error || "Unable to submit request.";
+                    errorDiv.classList.remove('hidden');
+                    return;
+                }
+
+                closeRefundModal();
+                alert(data.message);
+                fetchStudentDashboardData();
+
+            } catch (err) {
+                errorDiv.textContent = "Error submitting refund request.";
+                errorDiv.classList.remove('hidden');
+            }
+        }
+
+        async function fetchInstructorDashboardData() {
+            try {
+                const response = await fetch(`${API_URL}/api/dashboard/instructor`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!response.ok) throw new Error("Dashboard metrics verification failure.");
+
+                const data = await response.json();
+                document.getElementById('instructor-welcome-title').textContent = `Instructor: ${currentUser.fullName}`;
+                
+                document.getElementById('stat-active-courses').textContent = data.courses.length;
+                let totalStudentsVal = 0;
+                data.courses.forEach(c => totalStudentsVal += (c.enrollmentCount || 0));
+                document.getElementById('stat-total-enrolled').textContent = totalStudentsVal;
+
+                renderInstructorCourses(data.courses);
+                renderInstructorRefundQueue(data.refundRequests);
+
+            } catch (err) {
+                console.error("Dashboard error configuration: ", err);
+            }
+        }
+
+        function renderInstructorCourses(courses) {
+            const container = document.getElementById('instructor-courses-container');
+            container.innerHTML = '';
+
+            if (courses.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 bg-brandMedium border border-slate-800 rounded-3xl p-8">
+                        <p class="text-slate-400 text-sm mb-2">You have not launched any programs yet.</p>
+                        <p class="text-xs text-slate-500">Launch a new course module to begin training.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            courses.forEach(course => {
+                const card = document.createElement('div');
+                card.className = "bg-brandMedium border border-slate-800 rounded-2xl p-6 custom-card-shadow flex flex-col md:flex-row md:items-center justify-between gap-6";
+                card.innerHTML = `
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-3">
+                            <span class="text-[9px] uppercase tracking-wider font-extrabold bg-brandGold/10 text-brandGold border border-brandGold/20 px-2 py-0.5 rounded-full">${course.category}</span>
+                            <span class="text-[10px] text-slate-400 font-bold tracking-wider uppercase">${course.lessons.length} Lesson Tracks</span>
+                        </div>
+                        <h4 class="text-lg font-bold text-white">${course.title}</h4>
+                        <p class="text-xs text-slate-400 max-w-xl">${course.description}</p>
+                    </div>
+
+                    <div class="flex items-center gap-6 border-t md:border-t-0 md:border-l border-slate-800 pt-4 md:pt-0 md:pl-6 shrink-0 text-center md:text-right">
+                        <div>
+                            <span class="block text-2xl font-black text-brandGold">${course.activeCount}</span>
+                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Active Students</span>
+                        </div>
+                        ${course.refundedCount > 0 ? `
+                            <div class="border-l border-slate-800 pl-4">
+                                <span class="block text-2xl font-black text-rose-400">${course.refundedCount}</span>
+                                <span class="text-[10px] text-rose-400 font-bold uppercase tracking-wider">Refunded Returns</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderInstructorRefundQueue(refundRequests) {
+            const container = document.getElementById('instructor-refund-requests-container');
+            container.innerHTML = '';
+
+            if (refundRequests.length === 0) {
+                container.innerHTML = `
+                    <div class="p-6 bg-brandDark/40 rounded-2xl border border-slate-800/80 text-center">
+                        <p class="text-xs text-slate-500 italic">No pending return requests in queue.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            refundRequests.forEach(req => {
+                const item = document.createElement('div');
+                item.className = "p-6 bg-brandMedium border border-rose-900/30 rounded-2xl flex flex-col md:flex-row justify-between md:items-center gap-4 relative";
+                item.innerHTML = `
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[10px] bg-rose-500/10 text-rose-400 font-bold px-2 py-0.5 rounded-lg border border-rose-500/15">Refund Requested</span>
+                            <span class="text-xs text-slate-400 font-medium">Original price: ₹${req.price.toLocaleString('en-IN')}</span>
+                        </div>
+                        <h4 class="text-sm font-bold text-white">${req.courseTitle}</h4>
+                        <div class="p-3 bg-brandDark/50 rounded-xl border border-slate-800 text-xs">
+                            <span class="block text-slate-400 text-[10px] font-bold uppercase">Stated Refund Reason:</span>
+                            <p class="text-slate-300 mt-1 italic">"${req.refundReason}"</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-2 border-t md:border-t-0 border-slate-800/60 pt-3 md:pt-0 shrink-0">
+                        <button onclick="respondToRefund('${req.id}', 'Deny')" class="px-4 py-2 bg-brandDark border border-slate-800 hover:border-slate-700 text-slate-300 text-xs font-bold rounded-xl transition-all">
+                            Deny Refund
+                        </button>
+                        <button onclick="respondToRefund('${req.id}', 'Approve')" class="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white text-xs font-extrabold rounded-xl transition-all">
+                            Approve Refund
+                        </button>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function openCourseCreationModal() {
+            document.getElementById('course-create-modal').classList.remove('hidden');
+        }
+
+        function closeCourseCreationModal() {
+            document.getElementById('course-create-modal').classList.add('hidden');
+            document.getElementById('m-course-title').value = '';
+            document.getElementById('m-course-duration').value = '';
+            document.getElementById('m-course-price').value = '';
+            document.getElementById('m-course-desc').value = '';
+            document.getElementById('modal-error-alert').classList.add('hidden');
+            document.getElementById('m-lessons-inputs-stack').innerHTML = `
+                <input type="text" class="m-lesson-input w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brandGold transition-colors" placeholder="Lesson Segment 1">
+                <input type="text" class="m-lesson-input w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brandGold transition-colors" placeholder="Lesson Segment 2">
+            `;
+        }
+
+        function addNewLessonInput() {
+            const container = document.getElementById('m-lessons-inputs-stack');
+            const index = container.querySelectorAll('input').length + 1;
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = "m-lesson-input w-full bg-brandDark border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-brandGold transition-colors";
+            input.placeholder = `Lesson Segment ${index}`;
+            container.appendChild(input);
+        }
+
+        async function handleCourseCreateSubmit(event) {
+            event.preventDefault();
+            const title = document.getElementById('m-course-title').value;
+            const category = document.getElementById('m-course-category').value;
+            const price = document.getElementById('m-course-price').value;
+            const duration = document.getElementById('m-course-duration').value;
+            const description = document.getElementById('m-course-desc').value;
+            const errorAlert = document.getElementById('modal-error-alert');
+            errorAlert.classList.add('hidden');
+
+            const lessonInputs = document.querySelectorAll('.m-lesson-input');
+            const lessons = [];
+            lessonInputs.forEach(input => {
+                if (input.value.trim() !== '') {
+                    lessons.push(input.value.trim());
+                }
+            });
+
+            try {
+                const response = await fetch(`${API_URL}/api/courses`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ title, category, price, duration, description, lessons })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    errorAlert.textContent = data.error || "Failed to publish course program.";
+                    errorAlert.classList.remove('hidden');
+                    return;
+                }
+
+                closeCourseCreationModal();
+                fetchInstructorDashboardData();
+
+            } catch (err) {
+                errorAlert.textContent = "Error communicating with server.";
+                errorAlert.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
