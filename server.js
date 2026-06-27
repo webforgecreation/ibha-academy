@@ -51,9 +51,9 @@ const EnrollmentSchema = new mongoose.Schema({
     refundDecisionDate: { type: Date }
 });
 
-const User = mongoose.model('User', UserSchema);
-const Course = mongoose.model('Course', CourseSchema);
-const Enrollment = mongoose.model('Enrollment', EnrollmentSchema);
+const User = mongoose.models.User || mongoose.model('User', UserSchema);
+const Course = mongoose.models.Course || mongoose.model('Course', CourseSchema);
+const Enrollment = mongoose.models.Enrollment || mongoose.model('Enrollment', EnrollmentSchema);
 
 async function seedDefaultCourses() {
     const defaultCourses = [
