@@ -2,9 +2,9 @@
   "name": "ibha-academy-lms",
   "version": "1.4.0",
   "description": "LMS Platform - IBHAFINTECH",
-  "main": "server.js",
+  "main": "script.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node script.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
