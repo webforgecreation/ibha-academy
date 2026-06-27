@@ -12,15 +12,15 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname));
 
-if (MONGODB_URI) {
-    mongoose.connect(MONGODB_URI)
-        .then(() => {
-            console.log("Connected to MongoDB");
-            seedDefaultCourses();
-        })
-        .catch(err => console.error("Database connection error:", err));
-}
+const UserSchema = new mongoose.Schema({
+    fullName: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    role: { type: String, required: true, enum: ['Student', 'Instructor'] },
+    registrationTimestamp: { type: Date, default: Date.now }
+});
 
 const CourseSchema = new mongoose.Schema({
     id: { type: String, required: true, unique: true },
@@ -217,7 +217,7 @@ app.post('/api/auth/login', async (req, res) => {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            return res.status(400).json({ error: "Missing credentials." });
+            return res.status(400).json({ error: "Please provide credentials." });
         }
 
         const user = await User.findOne({ email: email.toLowerCase() });
@@ -251,20 +251,20 @@ app.get('/api/courses', async (req, res) => {
         const courses = await Course.find({});
         res.status(200).json(courses);
     } catch (err) {
-        res.status(500).json({ error: "Retrieval failed." });
+        res.status(500).json({ error: "Unable to retrieve course catalogue." });
     }
 });
 
 app.post('/api/courses', authenticateToken, async (req, res) => {
     try {
         if (req.user.role !== 'Instructor') {
-            return res.status(403).json({ error: "Instructors only." });
+            return res.status(403).json({ error: "Instructor role required." });
         }
 
         const { title, category, price, duration, description, lessons } = req.body;
 
         if (!title || !category || !price || !duration || !description || !lessons || !Array.isArray(lessons)) {
-            return res.status(400).json({ error: "Missing fields." });
+            return res.status(400).json({ error: "Please complete all fields." });
         }
 
         const newCourse = new Course({
@@ -506,10 +506,6 @@ app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running`);
-});
-
 if (MONGODB_URI) {
     mongoose.connect(MONGODB_URI)
         .then(() => {
@@ -524,4 +520,3 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
-
