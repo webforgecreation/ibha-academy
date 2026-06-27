@@ -22,14 +22,6 @@ if (MONGODB_URI) {
         .catch(err => console.error("Database connection error:", err));
 }
 
-const UserSchema = new mongoose.Schema({
-    fullName: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    role: { type: String, required: true, enum: ['Student', 'Instructor'] },
-    registrationTimestamp: { type: Date, default: Date.now }
-});
-
 const CourseSchema = new mongoose.Schema({
     id: { type: String, required: true, unique: true },
     title: { type: String, required: true },
@@ -517,4 +509,19 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running`);
 });
+
+if (MONGODB_URI) {
+    mongoose.connect(MONGODB_URI)
+        .then(() => {
+            console.log("Connected to MongoDB");
+            seedDefaultCourses();
+        })
+        .catch(err => console.error("Database connection error:", err));
+}
+
+app.listen(PORT, () => {
+    console.log(`Server running`);
+});
+
 module.exports = app;
+
