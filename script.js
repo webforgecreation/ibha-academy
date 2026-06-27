@@ -511,7 +511,7 @@ app.post('/api/enrollments/:id/refund-respond', authenticateToken, async (req, r
 });
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, () => {
